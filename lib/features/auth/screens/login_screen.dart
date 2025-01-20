@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +11,7 @@ import 'package:link_task/core/widgets/app_custom_button.dart';
 
 import 'package:link_task/core/widgets/custom_text_form_field.dart';
 import 'package:link_task/features/auth/widgets/logo_widget.dart';
+import 'package:link_task/generated/locale_keys.g.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -25,30 +27,30 @@ class LoginScreen extends StatelessWidget {
             children: [
               const LogoWidget(),
               SizedBox(height: 23.h,),
-              Center(child: Text("تسجيل الدخول",style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),)),
+              Center(child: Text(LocaleKeys.login.tr(),style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),)),
               SizedBox(height: 48.h,),
-              Text("رقم الجوال",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal),),
+              Text(LocaleKeys.phoneNumber.tr(),style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal),),
               SizedBox(height: 16.h,),
                CustomFormTextField(hintText: "50xxxxxxx",prefixIcon: SizedBox(
-                height: 10,
+                height: 10.h,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding:  const EdgeInsets.symmetric(horizontal: 16),
+                      padding:  EdgeInsets.symmetric(horizontal: 16.w),
                       child: SvgPicture.asset(
                           AppImages.saudiFlag
                       ),
                     ),
-                    const Text(
+                     Text(
                       '+966',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 16),
+                      padding:  EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
                       child: VerticalDivider(
                         color: AppColors.greyColor,
                       ),
@@ -57,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),),
               SizedBox(height: 36.h,),
-               AppCustomButton(title: "تسجيل الدخول",onTap: (){
+               AppCustomButton(title: LocaleKeys.login.tr(),onTap: (){
                 context.navigateTo(AppRoutes.verificationRoute);
               },)
 

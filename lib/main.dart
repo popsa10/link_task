@@ -9,6 +9,7 @@ import 'package:link_task/core/utilities/app_themes.dart';
 
 import 'core/services/injector_service.dart';
 import 'core/utilities/app_routes.dart';
+import 'generated/codegen_loader.g.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,7 @@ void main() async{
         path: 'assets/translations', // <-- change the path of the translation files
         fallbackLocale: AppConstants.fallbackLocale,
         startLocale: AppConstants.startLocale,
+        assetLoader: const CodegenLoader(),
         child: const MyApp()
     ),
   );

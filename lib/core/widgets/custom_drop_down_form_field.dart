@@ -20,7 +20,7 @@ class CustomDropDownFormField<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(label,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.normal),),
+         Text(label,style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w500),),
          SizedBox(height: 10.h,),
         DropdownButtonFormField<T>(
           items: items,
@@ -31,7 +31,7 @@ class CustomDropDownFormField<T> extends StatelessWidget {
           hint: Text(hintText,style: TextStyle(
               color: context.watch<ThemeCubit>().isDarkTheme() ? null : AppColors.greyColor ,
               fontSize: 12,
-              fontWeight: FontWeight.normal
+              fontWeight: FontWeight.w500
           ),),
           decoration: InputDecoration(
             filled: context.watch<ThemeCubit>().isDarkTheme(),

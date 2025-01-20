@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:link_task/features/home/widgets/drawer.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../widgets/salon_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,8 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
       endDrawer: const DrawerWidget(),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          'صالونات الحلاقة',
+        title:  Text(
+          LocaleKeys.barber.tr(),
         ),
         centerTitle: false,
         actions: [

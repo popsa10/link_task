@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:link_task/core/cubit/theme_cubit/theme_cubit.dart';
 import 'package:link_task/core/utilities/app_colors.dart';
 import 'package:link_task/core/utilities/app_images.dart';
+
+import '../../../generated/locale_keys.g.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -25,7 +28,7 @@ class DrawerWidget extends StatelessWidget {
                textAlign: TextAlign.center,
                style: TextStyle(
                  color: cubit.isDarkTheme() ? Colors.white : const Color(0xFF002E5B),
-                 fontSize: 14,
+                 fontSize: 14.sp,
                  fontWeight: FontWeight.w500,
                ),
              ),
@@ -33,7 +36,7 @@ class DrawerWidget extends StatelessWidget {
                'Mostafa435@gmail.com',
                style: TextStyle(
                  color: cubit.isDarkTheme() ? Colors.white : const Color(0xFF6C6C6C),
-                 fontSize: 10,
+                 fontSize: 10.sp,
                  fontWeight: FontWeight.w400,
                ),
              ),
@@ -43,12 +46,13 @@ class DrawerWidget extends StatelessWidget {
              ),
              SizedBox(height: 32.h,),
              DrawerItem(
-               title: "اللغة",
+               onTap: (){},
+               title: LocaleKeys.language.tr(),
                icon: AppImages.language,
              ),
              SizedBox(height: 16.h,),
              DrawerItem(
-               title: "المظهر",
+               title: LocaleKeys.theme.tr(),
                onTap: (){
                  context.read<ThemeCubit>().toggleTheme();
                },
@@ -60,11 +64,11 @@ class DrawerWidget extends StatelessWidget {
                children: [
                  SvgPicture.asset(AppImages.logout),
                  SizedBox(width: 12.w,),
-                 const Text(
-                   'تسجيل الخروج',
-                   style: TextStyle(
-                     color: Color(0xFFDB2524),
-                     fontSize: 14,
+                  Text(
+                   LocaleKeys.logout.tr(),
+                   style:  TextStyle(
+                     color: const Color(0xFFDB2524),
+                     fontSize: 14.sp,
                      fontWeight: FontWeight.w600,
                    ),
                  )

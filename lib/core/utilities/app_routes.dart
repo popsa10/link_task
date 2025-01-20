@@ -26,7 +26,7 @@ class AppRouter{
       case AppRoutes.verificationRoute:
         return MaterialPageRoute(builder: (_) => VerificationScreen());
       case AppRoutes.registerRoute:
-        return MaterialPageRoute(builder: (_) => const RegisterScreen());
+        return MaterialPageRoute(builder: (_) =>  RegisterScreen());
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) =>  HomeScreen());
       case AppRoutes.salonDetailsRoute:

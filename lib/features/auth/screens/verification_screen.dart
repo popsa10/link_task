@@ -1,16 +1,16 @@
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:link_task/core/helper/navigation_extension.dart';
 import 'package:link_task/core/utilities/app_colors.dart';
-import 'package:link_task/core/utilities/app_constants.dart';
-import 'package:link_task/core/utilities/app_images.dart';
 import 'package:link_task/core/utilities/app_routes.dart';
 import 'package:link_task/core/utilities/app_themes.dart';
 import 'package:link_task/core/widgets/app_custom_button.dart';
 import 'package:link_task/features/auth/widgets/logo_widget.dart';
 import 'package:pinput/pinput.dart';
+
+import '../../../generated/locale_keys.g.dart';
+import 'dart:ui' as ui;
 
 class VerificationScreen extends StatelessWidget {
    const VerificationScreen({super.key});
@@ -31,36 +31,35 @@ class VerificationScreen extends StatelessWidget {
     return  Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 30),
+          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 30.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const LogoWidget(),
               SizedBox(height: 23.h,),
-              Center(child: Text("كود التحقق",style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),)),
+              Center(child: Text(LocaleKeys.verificationCode.tr(),style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),)),
               SizedBox(height: 38.h,),
                Text.rich(
                    TextSpan(
                 children: [
-                  const TextSpan(
-                    text: "أكتب كود التحقق المرسل الى",
-                    style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal)
-                  ),
                    TextSpan(
-
+                    text: LocaleKeys.typeVerificationCodeThatSentTo.tr(),
+                    style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500)
+                  ),
+                    TextSpan(
                     text: "+966 50 268 9874 ",
-                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,)
+                    style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,)
                   ),
                   TextSpan(
 
-                    text: "تعديل",
+                    text: LocaleKeys.edit.tr(),
                     style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline)
                   ),
                 ]
               )),
               SizedBox(height: 32.h,),
               Directionality(
-                textDirection: TextDirection.ltr,
+                textDirection: ui.TextDirection.ltr,
                 child: Pinput(
                             defaultPinTheme: AppThemes.defaultPinTheme,
                             focusedPinTheme: focusedPinTheme,
@@ -72,20 +71,20 @@ class VerificationScreen extends StatelessWidget {
                           ),
               ),
               SizedBox(height: 16.h,),
-              const Text.rich(TextSpan(
+               Text.rich(TextSpan(
                   children: [
                     TextSpan(
-                        text: "لم يصلك كود التحقق؟ ",
-                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal)
+                        text: "${LocaleKeys.didNotGetCode.tr()} ",
+                        style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500)
                     ),
-                    TextSpan(
+                     TextSpan(
                         text: "58:00",
-                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
+                        style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold)
                     ),
                   ]
               )),
               const Spacer(),
-              AppCustomButton(title: "تحقق الآن", onTap: () {
+              AppCustomButton(title: LocaleKeys.verifyNow.tr(), onTap: () {
                 context.navigateTo(AppRoutes.registerRoute);
               },)
 
