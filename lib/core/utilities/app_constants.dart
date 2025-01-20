@@ -7,5 +7,6 @@ class AppConstants{
   static String appName = "Barber";
   static String userToken = "userToken";
   static String userData = "userData";
+  static String isThemeDataDark = "isThemeDataDark";
   static String fontFamily = "Cairo";
 }

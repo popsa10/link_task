@@ -1,8 +1,10 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:link_task/core/utilities/app_decoration.dart';
 
+import '../cubit/theme_cubit/theme_cubit.dart';
 import '../utilities/app_colors.dart';
 
 class CustomDropDownFormField<T> extends StatelessWidget {
@@ -27,16 +29,18 @@ class CustomDropDownFormField<T> extends StatelessWidget {
           isExpanded: true,
           icon: Icon(Icons.keyboard_arrow_down,color: AppColors.greyColor),
           hint: Text(hintText,style: TextStyle(
-              color: AppColors.greyColor,
+              color: context.watch<ThemeCubit>().isDarkTheme() ? null : AppColors.greyColor ,
               fontSize: 12,
               fontWeight: FontWeight.normal
           ),),
           decoration: InputDecoration(
+            filled: context.watch<ThemeCubit>().isDarkTheme(),
+            fillColor: context.watch<ThemeCubit>().isDarkTheme() ? AppColors.lightBlackColor :null,
             contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
 
-              border: AppDecoration.buildOutlineBorder(),
-              focusedBorder: AppDecoration.buildOutlineBorder(),
-              enabledBorder: AppDecoration.buildOutlineBorder(),
+              border: AppDecoration.buildOutlineBorder(context),
+              focusedBorder: AppDecoration.buildOutlineBorder(context),
+              enabledBorder: AppDecoration.buildOutlineBorder(context),
 
           ),
         ),
