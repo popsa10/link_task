@@ -1,37 +1,56 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:link_task/core/helper/navigation_extension.dart';
-import 'package:link_task/core/utilities/app_colors.dart';
+import 'package:link_task/core/utilities/app_constants.dart';
 import 'package:link_task/core/utilities/app_routes.dart';
-import 'package:link_task/core/utilities/app_themes.dart';
 import 'package:link_task/core/widgets/app_custom_button.dart';
+import 'package:link_task/core/widgets/custom_loader.dart';
+import 'package:link_task/features/auth/cubits/auth_cubit/auth_cubit.dart';
+import 'package:link_task/features/auth/cubits/auth_cubit/auth_states.dart';
 import 'package:link_task/features/auth/widgets/logo_widget.dart';
-import 'package:pinput/pinput.dart';
+import 'package:link_task/features/auth/widgets/verification_code_form_widget.dart';
 
+import '../../../core/widgets/error_snackbar_widget.dart';
 import '../../../generated/locale_keys.g.dart';
 import 'dart:ui' as ui;
 
-class VerificationScreen extends StatelessWidget {
-   const VerificationScreen({super.key});
+import '../widgets/verification_code_resend_timer_widget.dart';
 
 
-
-
+class VerificationScreen extends StatefulWidget {
+  final String phoneNumber;
+   const VerificationScreen({super.key, required this.phoneNumber});
 
   @override
-  Widget build(BuildContext context) {
-    final focusedPinTheme = AppThemes.defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: AppColors.primaryColor)
-    );
+  State<VerificationScreen> createState() => _VerificationScreenState();
+}
 
-    final submittedPinTheme = AppThemes.defaultPinTheme.copyDecorationWith(
-        border: Border.all(color: AppColors.primaryColor)
-    );
+class _VerificationScreenState extends State<VerificationScreen> {
+   late TextEditingController codeController;
+   late GlobalKey<FormState> formKey;
+   @override
+  void initState() {
+    // TODO: implement initState
+     codeController = TextEditingController();
+     formKey = GlobalKey<FormState>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    codeController.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+
     return  Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 30.h),
+          padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 30.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -39,54 +58,45 @@ class VerificationScreen extends StatelessWidget {
               SizedBox(height: 23.h,),
               Center(child: Text(LocaleKeys.verificationCode.tr(),style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),)),
               SizedBox(height: 38.h,),
-               Text.rich(
-                   TextSpan(
+              Row(
                 children: [
-                   TextSpan(
-                    text: LocaleKeys.typeVerificationCodeThatSentTo.tr(),
-                    style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500)
-                  ),
-                    TextSpan(
-                    text: "+966 50 268 9874 ",
-                    style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,)
-                  ),
-                  TextSpan(
-
-                    text: LocaleKeys.edit.tr(),
-                    style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline)
-                  ),
-                ]
-              )),
+                  Text(LocaleKeys.typeVerificationCodeThatSentTo.tr(),style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500)),
+                  Directionality(textDirection: ui.TextDirection.ltr,child: Text(" ${AppConstants.appPhoneKey}${widget.phoneNumber} ",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold))),
+                  GestureDetector(onTap: (){
+                    context.pop();
+                  },child: Text(LocaleKeys.edit.tr(),style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline))),
+                ],
+              ), 
               SizedBox(height: 32.h,),
-              Directionality(
-                textDirection: ui.TextDirection.ltr,
-                child: Pinput(
-                            defaultPinTheme: AppThemes.defaultPinTheme,
-                            focusedPinTheme: focusedPinTheme,
-                            submittedPinTheme: submittedPinTheme,
-                            pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                            showCursor: true,
-                            length: 6,
-                            onCompleted: (pin) => print(pin),
-                          ),
+               VerificationCodeFormWidget(
+                formKey: formKey,
+                codeController: codeController,
               ),
               SizedBox(height: 16.h,),
-               Text.rich(TextSpan(
-                  children: [
-                    TextSpan(
-                        text: "${LocaleKeys.didNotGetCode.tr()} ",
-                        style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500)
-                    ),
-                     TextSpan(
-                        text: "58:00",
-                        style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold)
-                    ),
-                  ]
-              )),
+               VerificationCodeResentTimerWidget(
+                phoneNumber: widget.phoneNumber,
+              ),
               const Spacer(),
-              AppCustomButton(title: LocaleKeys.verifyNow.tr(), onTap: () {
-                context.navigateTo(AppRoutes.registerRoute);
-              },)
+            BlocConsumer<AuthCubit,AuthState>(builder: (context, state) {
+              if(state.isActiveAccountLoading){
+                return const CustomLoader();
+              }else{
+                return  AppCustomButton(title: LocaleKeys.verifyNow.tr(), onTap: () {
+                  context.read<AuthCubit>().activeAccount(widget.phoneNumber, codeController.text);
+                },);
+              }
+            }, listener: (context, state) {
+              if(state.isActiveAccountLoaded){
+                if(state.isFirstLogin ?? true){
+                  context.navigateTo(AppRoutes.registerRoute);
+                }else{
+                  context.navigateTo(AppRoutes.homeRoute);
+                }
+              }
+              if(state.isError){
+                showErrorBar(context, state.error ?? "",);
+              }
+            },)
 
 
             ],

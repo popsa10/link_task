@@ -14,7 +14,10 @@ class CustomFormTextField extends StatelessWidget {
   final String? label;
   final bool isOptional;
   final Widget? prefixIcon;
-  const CustomFormTextField({super.key, required this.hintText, this.label,  this.isOptional = false, this.prefixIcon});
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  const CustomFormTextField({super.key, required this.hintText, this.label,  this.isOptional = false, this.prefixIcon, required this.controller, this.validator, this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,12 @@ class CustomFormTextField extends StatelessWidget {
         Directionality(
           textDirection: prefixIcon != null ? ui.TextDirection.ltr : ui.TextDirection.rtl,
           child: TextFormField(
+            onTapOutside: (event) {
+              FocusScope.of(context).unfocus();
+            },
+            validator: validator,
+            controller: controller,
+            keyboardType: keyboardType,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 17.h,vertical: 16.w),
                 hintText: hintText,

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/auth/model/user_model.dart';
+
 
 class CacheService {
    late SharedPreferences preferences;
@@ -32,13 +34,13 @@ class CacheService {
     return preferences.remove(key);
    }
 
-  //  UserModel? loadUserData() {
-  //   var jsonEncode = getData("userData");
-  //   UserModel? userModel;
-  //   if (jsonEncode != null) {
-  //     Map<String, dynamic> map = json.decode(jsonEncode);
-  //     userModel = UserModel.fromJson(map);
-  //   }
-  //   return userModel;
-  // }
+   UserModel? loadUserData() {
+    var jsonEncode = getData("userData");
+    UserModel? userModel;
+    if (jsonEncode != null) {
+      Map<String, dynamic> map = json.decode(jsonEncode);
+      userModel = UserModel.fromJson(map);
+    }
+    return userModel;
+  }
 }

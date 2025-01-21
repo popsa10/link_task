@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,14 +7,17 @@ import 'package:link_task/core/cubit/theme_cubit/Theme_states.dart';
 import 'package:link_task/core/cubit/theme_cubit/theme_cubit.dart';
 import 'package:link_task/core/utilities/app_constants.dart';
 import 'package:link_task/core/utilities/app_themes.dart';
-
 import 'core/services/injector_service.dart';
 import 'core/utilities/app_routes.dart';
+import 'firebase_options.dart';
 import 'generated/codegen_loader.g.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   setupInjector();
   cacheService.init();
   runApp(
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
               themeMode: cubit.isDarkTheme() ? ThemeMode.dark : ThemeMode.light,
               theme: AppThemes.lightTheme,
               onGenerateRoute:AppRouter.generateRoute,
-              initialRoute: AppRoutes.loginRoute,
+              initialRoute: cacheService.loadUserData() != null ? AppRoutes.homeRoute : AppRoutes.loginRoute,
             );
           }
 

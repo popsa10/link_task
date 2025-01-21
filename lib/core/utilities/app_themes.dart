@@ -19,9 +19,11 @@ class AppThemes{
         )
     ),
     appBarTheme: AppBarTheme(
+
       backgroundColor: AppColors.whiteColor,
       elevation: 0,
       titleTextStyle: TextStyle(
+          fontFamily: AppConstants.fontFamily,
           fontSize: 16.sp,
           fontWeight: FontWeight.bold,
           color: AppColors.blackColor
@@ -29,6 +31,24 @@ class AppThemes{
         actionsIconTheme: IconThemeData(
           color: AppColors.primaryColor,
         )
+    ),
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.primaryColor,
+      unselectedLabelColor: AppColors.blackColor,
+      dividerColor: AppColors.greyColor,
+      dividerHeight: 4,
+      indicatorColor: AppColors.primaryColor,
+      indicatorSize: TabBarIndicatorSize.tab,
+      labelStyle:  TextStyle(
+        color: AppColors.primaryColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelStyle:  TextStyle(
+        color: AppColors.blackColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
     ),
 
   );
@@ -39,6 +59,23 @@ class AppThemes{
     primaryColor: AppColors.darkStroke,
     primaryColorLight: AppColors.primaryLightColor,
     scaffoldBackgroundColor: AppColors.blackColor,
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.darkStroke,
+      unselectedLabelColor: AppColors.whiteColor,
+      dividerColor: AppColors.whiteColor,
+      dividerHeight: 2,
+      indicatorColor: AppColors.darkStroke,
+      indicatorSize: TabBarIndicatorSize.tab,
+      labelStyle:  TextStyle(
+        color: AppColors.darkStroke,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
     drawerTheme: DrawerThemeData(
       backgroundColor: AppColors.blackColor,
       endShape:  RoundedRectangleBorder(
@@ -46,9 +83,11 @@ class AppThemes{
       )
     ),
     appBarTheme: AppBarTheme(
+
       backgroundColor: AppColors.blackColor,
       elevation: 0,
       titleTextStyle: TextStyle(
+        fontFamily: AppConstants.fontFamily,
           fontSize: 16.sp,
           fontWeight: FontWeight.bold,
           color: AppColors.whiteColor
