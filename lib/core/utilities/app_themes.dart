@@ -80,6 +80,7 @@ class AppThemes{
         fontWeight: FontWeight.w600,
       ),
     ),
+
     drawerTheme: DrawerThemeData(
       backgroundColor: AppColors.blackColor,
       endShape:  RoundedRectangleBorder(

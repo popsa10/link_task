@@ -14,13 +14,7 @@ class VerificationCodeFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final focusedPinTheme = AppThemes.defaultPinTheme.copyDecorationWith(
-        border: Border.all(color: AppColors.primaryColor)
-    );
 
-    final submittedPinTheme = AppThemes.defaultPinTheme.copyDecorationWith(
-        border: Border.all(color: AppColors.primaryColor)
-    );
     return  Directionality(
       textDirection: ui.TextDirection.ltr,
       child: Pinput(
@@ -31,8 +25,10 @@ class VerificationCodeFormWidget extends StatelessWidget {
         },
 
         defaultPinTheme: AppThemes.defaultPinTheme,
-        focusedPinTheme: focusedPinTheme,
-        submittedPinTheme: submittedPinTheme,
+        focusedPinTheme: AppThemes.defaultPinTheme.copyDecorationWith(
+            border: Border.all(color: AppColors.primaryColor)),
+        submittedPinTheme: AppThemes.defaultPinTheme.copyDecorationWith(
+        border: Border.all(color: AppColors.primaryColor)),
         pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
         showCursor: true,
         length: 4,

@@ -37,7 +37,7 @@ class CustomCachedNetworkImage extends StatelessWidget {
         placeholder: (context, url) => placeholder ??
            const CustomLoader(),
         errorWidget: (context, url, error) => errorWidget ??
-             Image.asset(AppImages.logo),
+             Image.asset(AppImages.logo), 
       ),
     );
   }
