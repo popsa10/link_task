@@ -1,10 +1,8 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:link_task/core/utilities/app_decoration.dart';
-
-import '../cubit/theme_cubit/theme_cubit.dart';
+import '../cubit/app_cubit/app_cubit.dart';
 import '../utilities/app_colors.dart';
 
 class CustomDropDownFormField<T> extends StatefulWidget {
@@ -39,18 +37,18 @@ class _CustomDropDownFormFieldState<T> extends State<CustomDropDownFormField<T>>
           isExpanded: true,
           icon: Icon(Icons.keyboard_arrow_down,color: AppColors.greyColor),
           style: TextStyle(
-              color: context.watch<ThemeCubit>().isDarkTheme() ? null : AppColors.greyColor ,
+              color: context.watch<AppCubit>().isDarkTheme() ? null: AppColors.greyColor ,
               fontSize: 12.sp,
               fontWeight: FontWeight.w500
           ),
           hint: Text(widget.hintText,style: TextStyle(
-              color: context.watch<ThemeCubit>().isDarkTheme() ? null : AppColors.greyColor ,
+              color: context.watch<AppCubit>().isDarkTheme() ? null : AppColors.greyColor ,
               fontSize: 12.sp,
               fontWeight: FontWeight.w500
           ),),
           decoration: InputDecoration(
-            filled: context.watch<ThemeCubit>().isDarkTheme(),
-            fillColor: context.watch<ThemeCubit>().isDarkTheme() ? AppColors.lightBlackColor :null,
+            filled: context.watch<AppCubit>().isDarkTheme(),
+            fillColor: context.watch<AppCubit>().isDarkTheme() ? AppColors.lightBlackColor :null,
             contentPadding: EdgeInsets.all(16.h),
 
               border: AppDecoration.buildOutlineBorder(context),

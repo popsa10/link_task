@@ -1,5 +1,7 @@
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:link_task/generated/locale_keys.g.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../errors/error_class.dart';
 import '../utilities/app_constants.dart';
@@ -10,7 +12,7 @@ class DioService {
   final Dio _dio = Dio();
   DioService() {
     _dio.options.baseUrl = AppEndpoints.baseUrl;
-    _dio.options.followRedirects = true;
+
     _dio.options.validateStatus = (status) {
       return status! <= 500;
     };
@@ -25,7 +27,6 @@ class DioService {
 
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
-        print(cacheService.getData(AppConstants.userToken));
         options.headers['Authorization'] = "Bearer ${cacheService.getData(AppConstants.userToken) ?? ""}";
         options.headers['Accept-Language'] = cacheService.getData(AppConstants.userLang) ?? "ar"; 
         return handler.next(options);
@@ -43,28 +44,13 @@ class DioService {
   }
 
    Future<Response> get({required String endpoint,Map<String,dynamic>? query}) async {
-    try {
       final response = await _dio.get(endpoint,queryParameters: query);
       return response;
-    }on DioException catch (exception) {
-      final errorMessage = DioErrorHandler.handleError(exception);
-     throw errorMessage;
-    } catch (e) {
-      throw "Something went wrong";
-    }
   }
 
    Future<Response> post({required String endpoint, required Map<String, dynamic> data,bool isFormData = true}) async {
-
-    try {
       final response = await _dio.post(endpoint, data: isFormData ? FormData.fromMap(data) : data);
       return response;
-    }on DioException catch (exception) {
-      final errorMessage = DioErrorHandler.handleError(exception);
-      throw errorMessage;
-    } catch (e) {
-      throw "Something went wrong";
-    }
   }
   
 }

@@ -15,11 +15,9 @@ class ServicesTabWidget extends StatelessWidget {
       var services = state.services;
       return GridView.count(
         padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 32.h),
-        shrinkWrap: true,
         crossAxisSpacing: 20.w,
         mainAxisSpacing: 24.h,
         childAspectRatio: 0.9,
-        physics: const NeverScrollableScrollPhysics(),
         crossAxisCount: 2,children: List.generate(services?.length ?? 0, (index) => ServiceItem(serviceModel: services![index])),);
     });
   }

@@ -15,8 +15,6 @@ class SalonWorkersTabWidget extends StatelessWidget {
     return BlocBuilder<HomeCubit,HomeState>(builder: (context, state) {
       var providers = state.salonDetails?.providers ?? [];
       return ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
         padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 32.h),
           itemBuilder: (context, index) {
 

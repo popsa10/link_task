@@ -87,10 +87,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                }
              }, listener: (context, state) {
                if(state.isCompleteRegisterLoaded){
-                 context.navigateTo(AppRoutes.homeRoute);
+                 context.replaceWith(AppRoutes.homeRoute);
                }
                if(state.isError){
-                 showErrorBar(context, state.error ?? "");
+                 showErrorBar(context, state.error?.errorMessage ?? "");
                }
              },)
             ],

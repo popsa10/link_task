@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:link_task/core/cubit/theme_cubit/theme_cubit.dart';
 import 'package:link_task/core/helper/navigation_extension.dart';
 import 'package:link_task/core/utilities/app_colors.dart';
 import 'package:link_task/core/utilities/app_images.dart';
 import 'package:link_task/core/utilities/app_routes.dart';
 import 'package:link_task/core/widgets/custom_cached_network_image.dart';
+import '../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../generated/locale_keys.g.dart';
 import '../model/salon_model.dart';
 
@@ -18,9 +18,12 @@ class SalonItem extends StatelessWidget {
 
   String services(){
     List<String> services = [];
-    salonModel.services?.forEach((element) {
-      services.add(element.name ?? "");
-    });
+    for(int i = 0; i < salonModel.services!.length; i++){
+      if(i<2){
+        services.add(salonModel.services![i].name ?? "");
+      }
+
+    }
     return services.join(" - ");
   }
 
@@ -54,7 +57,7 @@ class SalonItem extends StatelessWidget {
                   Text(
                     salonModel.desc ?? "",
                     style: TextStyle(
-                      color: context.watch<ThemeCubit>().isDarkTheme() ? Colors.white : const Color(0xFF263238),
+                      color: context.watch<AppCubit>().isDarkTheme() ? Colors.white : const Color(0xFF263238),
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w500,
                     ),
@@ -78,7 +81,7 @@ class SalonItem extends StatelessWidget {
                             TextSpan(
                               text: '${salonModel.rateAvg ?? 0} ',
                               style: TextStyle(
-                                color: const Color(0xFF6C6C6C),
+                                color:  AppColors.greyColor,
                                 fontSize: 8.sp,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -95,7 +98,7 @@ class SalonItem extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 12.w,),
-                      SvgPicture.asset(AppImages.location,color: context.watch<ThemeCubit>().isDarkTheme() ? AppColors.darkStroke : null),
+                      SvgPicture.asset(AppImages.location,color: context.watch<AppCubit>().isDarkTheme() ? AppColors.darkStroke : null),
                       SizedBox(width: 4.w,),
                        Text(
                         '${salonModel.distance} ${LocaleKeys.km.tr()}',

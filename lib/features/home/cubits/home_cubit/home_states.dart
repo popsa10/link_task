@@ -2,6 +2,7 @@
 
 
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:link_task/core/errors/error_class.dart';
 import 'package:link_task/features/home/model/service_model.dart';
 
 import '../../model/salon_model.dart';
@@ -27,7 +28,7 @@ class HomeState {
   final List<SalonModel>? salons;
   final List<ServiceModel>? services;
   final SalonModel? salonDetails;
-  final String? error;
+  final Failure? error;
    HomeState(
       {required this.status,this.salons,this.services,this.salonDetails,this.error,required this.pagingController});
 
@@ -37,7 +38,7 @@ class HomeState {
     List<ServiceModel>? services,
     SalonModel? salonDetails,
     PagingController<int, SalonModel>? pagingController,
-    String? error,
+    Failure? error,
   }) {
     return HomeState(
       status: status ?? this.status,

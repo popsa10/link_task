@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:link_task/core/cubit/theme_cubit/theme_cubit.dart';
 import 'package:link_task/core/helper/navigation_extension.dart';
 import 'package:link_task/core/services/injector_service.dart';
 import 'package:link_task/core/utilities/app_colors.dart';
@@ -16,13 +15,14 @@ import 'package:link_task/features/auth/cubits/auth_cubit/auth_states.dart';
 
 import '../../features/home/widgets/drawer_item.dart';
 import '../../generated/locale_keys.g.dart';
+import '../cubit/app_cubit/app_cubit.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.watch<ThemeCubit>();
+    var cubit = context.watch<AppCubit>();
     return Drawer(
       width: 272.w,
        child: Padding(
@@ -36,7 +36,7 @@ class DrawerWidget extends StatelessWidget {
                cacheService.loadUserData()?.name ?? "",
                textAlign: TextAlign.center,
                style: TextStyle(
-                 color: cubit.isDarkTheme() ? Colors.white : const Color(0xFF002E5B),
+                 color: cubit.isDarkTheme() ? Colors.white : AppColors.primaryColor,
                  fontSize: 14.sp,
                  fontWeight: FontWeight.w500,
                ),
@@ -45,7 +45,7 @@ class DrawerWidget extends StatelessWidget {
               Text(
                cacheService.loadUserData()?.email ?? "",
                style: TextStyle(
-                 color: cubit.isDarkTheme() ? Colors.white : const Color(0xFF6C6C6C),
+                 color: cubit.isDarkTheme() ? Colors.white :  AppColors.greyTextColor,
                  fontSize: 10.sp,
                  fontWeight: FontWeight.w400,
                ),
@@ -56,7 +56,10 @@ class DrawerWidget extends StatelessWidget {
              ),
              SizedBox(height: 32.h,),
              DrawerItem(
-               onTap: (){},
+               onTap: (){
+                 context.read<AppCubit>().toggleLanguage(context); 
+
+               },
                title: LocaleKeys.language.tr(),
                icon: AppImages.language,
              ),
@@ -64,7 +67,7 @@ class DrawerWidget extends StatelessWidget {
              DrawerItem(
                title: LocaleKeys.theme.tr(),
                onTap: (){
-                 context.read<ThemeCubit>().toggleTheme();
+                 context.read<AppCubit>().toggleTheme();
                },
                icon: AppImages.theme,
              ),

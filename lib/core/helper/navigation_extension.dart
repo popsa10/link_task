@@ -8,7 +8,7 @@ extension NavigationExtension on BuildContext {
   }
 
   Future<dynamic> replaceWith(String routeName, {Object? arguments}) {
-    return Navigator.pushReplacementNamed(this, routeName, arguments: arguments);
+    return Navigator.pushNamedAndRemoveUntil(this, routeName, (route) => false, arguments: arguments);
   }
 
   void pop([dynamic result]) {

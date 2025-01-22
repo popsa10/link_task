@@ -1,50 +1,59 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-class DioErrorHandler {
-  /// Parses Dio exceptions and returns a readable error message.
-  static String handleError(DioException exception) {
-    switch (exception.type) {
+import '../../generated/locale_keys.g.dart';
+
+abstract class Failure{
+  final String errorMessage;
+  Failure(this.errorMessage);
+}
+
+class ServerFailure extends Failure{
+  ServerFailure(super.errorMessage);
+
+  factory ServerFailure.fromDioException(DioException dioException){
+    switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
-        return "Connection timeout. Please try again later.";
+        return ServerFailure(LocaleKeys.connectionTimeout.tr());
       case DioExceptionType.sendTimeout:
-        return "Send timeout. Please check your connection.";
+        return ServerFailure(LocaleKeys.sendTimeout.tr());
       case DioExceptionType.receiveTimeout:
-        return "Receive timeout. Please check your connection.";
+        return ServerFailure(LocaleKeys.receiveTimeout.tr());
       case DioExceptionType.badResponse:
-      // Handle non-2xx responses
-        return _handleResponseError(exception.response);
+        return ServerFailure.fromResponse(dioException.response);
       case DioExceptionType.cancel:
-        return "Request cancelled. Please try again.";
+        return ServerFailure(LocaleKeys.requestCancelled.tr());
       case DioExceptionType.connectionError:
-        return "Connection error. Please check your internet connection.";
+        return ServerFailure(LocaleKeys.connectionError.tr());
       case DioExceptionType.unknown:
-        return "An unexpected error occurred. Please try again.";
+        return ServerFailure(LocaleKeys.unexpectedError.tr());
       default:
-        return "Something went wrong. Please try again.";
+        return ServerFailure(LocaleKeys.unexpectedError.tr());
     }
   }
 
-  /// Handles errors based on response status codes.
-  static String _handleResponseError(Response? response) {
+  factory ServerFailure.fromResponse(Response? response) {
     if (response == null) {
-      return "An unexpected server error occurred.";
+      return ServerFailure(LocaleKeys.unexpectedServerError.tr());
     }
-
     switch (response.statusCode) {
       case 400:
-        return response.data["message"];
+      case 422:
+        return ServerFailure(response.data["message"]);
       case 401:
-        return "Unauthorized access. Please login again.";
+        return ServerFailure(LocaleKeys.unauthorizedAccess.tr());
       case 403:
-        return "Forbidden. You don't have permission to access this resource.";
+        return ServerFailure(LocaleKeys.forbidden.tr());
       case 404:
-        return "Not found. The requested resource doesn't exist.";
+        return ServerFailure(LocaleKeys.notFound.tr());
       case 500:
-        return "Internal server error. Please try again later.";
+        return ServerFailure(LocaleKeys.internalServerError.tr());
       case 503:
-        return "Service unavailable. Please try again later.";
+        return ServerFailure(LocaleKeys.serviceUnavailable.tr());
       default:
-        return "Unexpected status code: ${response.statusCode}.";
+        return ServerFailure("${LocaleKeys.unexpectedStatusCode.tr()}: ${response.statusCode}.");
     }
   }
+
 }
+

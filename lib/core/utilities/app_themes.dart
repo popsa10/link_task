@@ -41,12 +41,14 @@ class AppThemes{
       indicatorSize: TabBarIndicatorSize.tab,
       labelStyle:  TextStyle(
         color: AppColors.primaryColor,
-        fontSize: 16,
+        fontSize: 16.sp,
+        fontFamily: AppConstants.fontFamily,
         fontWeight: FontWeight.w600,
       ),
       unselectedLabelStyle:  TextStyle(
         color: AppColors.blackColor,
-        fontSize: 16,
+        fontSize: 16.sp,
+        fontFamily: AppConstants.fontFamily,
         fontWeight: FontWeight.w600,
       ),
     ),
@@ -68,11 +70,13 @@ class AppThemes{
       indicatorSize: TabBarIndicatorSize.tab,
       labelStyle:  TextStyle(
         color: AppColors.darkStroke,
-        fontSize: 16,
+        fontSize: 16.sp,
+        fontFamily: AppConstants.fontFamily,
         fontWeight: FontWeight.w600,
       ),
-      unselectedLabelStyle: const TextStyle(
-        fontSize: 16,
+      unselectedLabelStyle:  TextStyle(
+        fontSize: 16.sp,
+        fontFamily: AppConstants.fontFamily,
         fontWeight: FontWeight.w600,
       ),
     ),

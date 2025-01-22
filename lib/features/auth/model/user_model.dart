@@ -44,7 +44,9 @@ class UserModel {
     if(deviceId != null) {
       data['device_id'] = deviceId;
     }
-    data['gender'] = gender;
+    if(gender != null) {
+      data['gender'] = gender;
+    }
     data['city_id'] = cityId;
     data['avatar'] = avatar;
     return data;

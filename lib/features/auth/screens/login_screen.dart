@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state.isError) {
-                    showErrorBar(context, state.error ?? "",);
+                    showErrorBar(context, state.error?.errorMessage ?? "",);
                   }
                   if (state.isLoginLoaded) {
                     context.navigateTo(AppRoutes.verificationRoute,arguments: phoneController.text);

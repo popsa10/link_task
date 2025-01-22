@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../core/cubit/theme_cubit/theme_cubit.dart';
+import '../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../core/utilities/app_colors.dart';
 
 class DrawerItem extends StatelessWidget {
@@ -13,7 +13,7 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.watch<ThemeCubit>();
+    var cubit = context.watch<AppCubit>();
     return  ListTile(
       onTap: onTap,
       leading: SvgPicture.asset(icon),

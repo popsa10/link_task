@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:link_task/core/utilities/app_colors.dart';
-
-import '../../../core/cubit/theme_cubit/theme_cubit.dart';
+import '../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../core/utilities/app_images.dart';
 import '../../../generated/locale_keys.g.dart';
 import '../model/salon_model.dart';
@@ -53,7 +52,7 @@ class SalonDetailsHeaderWidget extends StatelessWidget {
             salonModel.desc ?? "",
             maxLines: 3,
             style: TextStyle(
-              color: context.watch<ThemeCubit>().isDarkTheme() ? null: AppColors.descColor,
+              color: context.watch<AppCubit>().isDarkTheme() ? null: AppColors.descColor,
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -72,7 +71,7 @@ class SalonDetailsHeaderWidget extends StatelessWidget {
                     TextSpan(
                       text: '${LocaleKeys.numberOfWorkers.tr()}:',
                       style: TextStyle(
-                        color: context.watch<ThemeCubit>().isDarkTheme() ? AppColors.darkStroke : AppColors.descColor,
+                        color: context.watch<AppCubit>().isDarkTheme() ? AppColors.darkStroke : AppColors.descColor,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                       ),
@@ -101,7 +100,7 @@ class SalonDetailsHeaderWidget extends StatelessWidget {
                 '${LocaleKeys.workingHours.tr()}: ',
                 textAlign: TextAlign.right,
                 style: TextStyle(
-                  color: context.watch<ThemeCubit>().isDarkTheme() ? AppColors.darkStroke : AppColors.descColor,
+                  color: context.watch<AppCubit>().isDarkTheme() ? AppColors.darkStroke : AppColors.descColor,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w600,
                 ),

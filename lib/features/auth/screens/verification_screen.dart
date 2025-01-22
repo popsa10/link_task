@@ -90,11 +90,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 if(state.isFirstLogin ?? true){
                   context.navigateTo(AppRoutes.registerRoute);
                 }else{
-                  context.navigateTo(AppRoutes.homeRoute);
+                  context.replaceWith(AppRoutes.homeRoute);
                 }
               }
               if(state.isError){
-                showErrorBar(context, state.error ?? "",);
+                showErrorBar(context, state.error?.errorMessage ?? "",);
               }
             },)
 

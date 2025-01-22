@@ -80,6 +80,21 @@ class SalonModel {
 
 }
 
+var salonModel = SalonModel(
+  id: 1,
+  name: "Salon Name",
+  desc: "Salon Desc",
+  image: "Salon Image",
+  rateAvg: "4.5",
+  countProviders: 10,
+  hourWork: "10:00 - 18:00",
+  isOpen: true,
+  timeClose: "18:00",
+  timeOpen: "10:00",
+  countRate: 100,
+  distance: "1.5 km",
+);
+
 
 
 

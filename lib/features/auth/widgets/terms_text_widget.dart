@@ -2,8 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../core/cubit/theme_cubit/theme_cubit.dart';
+import '../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../core/utilities/app_colors.dart';
 import '../../../generated/locale_keys.g.dart';
 
@@ -17,7 +16,7 @@ class TermsTextWidget extends StatelessWidget {
         children:  [
           TextSpan(
             text: LocaleKeys.termsAndConditions.tr(),
-            style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline,decorationColor: context.watch<ThemeCubit>().isDarkTheme() ? null : AppColors.primaryColor),
+            style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline,decorationColor: context.watch<AppCubit>().isDarkTheme() ? null : AppColors.primaryColor),
           ),
           TextSpan(
             text: " ${LocaleKeys.barber.tr()}",

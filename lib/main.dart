@@ -3,14 +3,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:link_task/core/cubit/theme_cubit/Theme_states.dart';
-import 'package:link_task/core/cubit/theme_cubit/theme_cubit.dart';
 import 'package:link_task/core/utilities/app_constants.dart';
 import 'package:link_task/core/utilities/app_themes.dart';
+import 'core/cubit/app_cubit/app_cubit.dart';
+import 'core/cubit/app_cubit/app_states.dart';
 import 'core/services/injector_service.dart';
 import 'core/utilities/app_routes.dart';
 import 'firebase_options.dart';
 import 'generated/codegen_loader.g.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,16 +41,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit(),
+      create: (context) => AppCubit(),
       child: ScreenUtilInit(
         designSize: const Size(430, 932),
         minTextAdapt: true,
         splitScreenMode: true,
-        child: BlocBuilder<ThemeCubit,ThemeState>(
-          buildWhen: (previous, current) => current is ToggleThemeData,
+        child: BlocBuilder<AppCubit,AppState>(
           builder: (context, state){
-            var cubit = BlocProvider.of<ThemeCubit>(context);
+            var cubit = BlocProvider.of<AppCubit>(context);
             return MaterialApp(
+              navigatorKey: navigatorKey,
               debugShowCheckedModeBanner: false,
               title: AppConstants.appName,
               localizationsDelegates: context.localizationDelegates,

@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.linkdevelopment.barber",
+    "sha256_cert_fingerprints":
+    ["1D:54:CF:F3:53:D5:0B:0F:76:EC:1D:99:E4:1C:80:48:E8:07:F9:42:65:25:E5:23:7C:56:64:77:3E:B4:DC:4B"]
+  }
+}]

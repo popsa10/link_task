@@ -1,4 +1,6 @@
 
+import '../../../../core/errors/error_class.dart';
+
 enum AuthStatus{ initial , loginLoading , loginLoaded ,isActiveAccountLoading,isActiveAccountLoaded, completeRegisterLoading,completeRegisterLoaded,logoutLoading,logoutLoaded,selectGender, error }
 
 extension AuthStatusX on AuthState {
@@ -16,7 +18,7 @@ extension AuthStatusX on AuthState {
 
 class AuthState {
   final AuthStatus status;
-  final String? error;
+  final Failure? error;
   final bool? isFirstLogin;
   const AuthState(
       {required this.status,this.isFirstLogin,this.error});
@@ -24,7 +26,7 @@ class AuthState {
   AuthState copyWith({
     AuthStatus? status,
     bool? isFirstLogin,
-    String? error,
+    Failure? error,
   }) {
     return AuthState(
       status: status ?? this.status,
